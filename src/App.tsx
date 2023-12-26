@@ -6,20 +6,28 @@ import {
   Error,
   NewsLetter,
   Cocktail,
+  SinglePageError,
 } from "./pages";
+
+import { loader as landingLoader } from "./pages/Landing";
+import { loader as singleCocktailLoader } from "./pages/Cocktail";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    errorElement: <Error/>,
+    errorElement: <Error />,
     children: [
       {
         index: true,
         element: <Landing />,
+        loader: landingLoader,
+        errorElement: <SinglePageError />,
       },
       {
-        path: "cocktail",
+        path: "cocktail/:id",
+        errorElement: <SinglePageError />,
+        loader: singleCocktailLoader,
         element: <Cocktail />,
       },
       {
@@ -31,7 +39,7 @@ const router = createBrowserRouter([
         element: <About />,
       },
     ],
-  }
+  },
 ]);
 
 const App = () => {
